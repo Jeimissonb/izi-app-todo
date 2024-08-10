@@ -1,4 +1,4 @@
-# izi-app-todo
+# izi-app-todo-back
 
 Este projeto é uma aplicação web desenvolvida utilizando Node.js com o framework Express. Ele inclui autenticação com JWT e armazenamento de dados utilizando PostgreSQL ou MySQL com o ORM Sequelize.
 
@@ -102,4 +102,7 @@ Agora, o servidor deve estar rodando em `http://localhost:3000`. Acesse o endere
   * O enviroment utilizado na coleção está na pasta /collections/izi-app-localhost.postman_environment
   ```
 Basta importar a coleção e o enviroment dentro do seu ambiente do postman e iniciar! 
-OBS: Recomendo iniciar da requisição: POST User, pois é ela quem cria o usuário a ser utilizado nas demais, por conta da autenticação
+OBS: Recomendo iniciar da requisição: POST User, pois é esta requisição responsável por criar o usuário a ser utilizado nas demais requisições, por conta da autenticação. 
+     Logo em seguida ir na requisição de LOGIN User, para autenticar e capturar o token a ser utilizado nas demais requisições. 
+     O token é setado na variável de ambiente do enviroment de forma automática, caso esteja tudo importado corretamente.
+
