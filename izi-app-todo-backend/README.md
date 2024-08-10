@@ -26,37 +26,41 @@ Este projeto é uma aplicação web desenvolvida utilizando Node.js com o framew
 ### Configuração Inicial
 
 1. **Clonar o Repositório e entrar na pasta do backend:**
+
    ```bash
    git clone https://github.com/Jeimissonb/izi-app-todo.git
    cd izi-app-todo
-   cd izi-app-todo-backend 
+   cd izi-app-todo-backend
    ```
 
 2. **Instalar Dependências:**
+
    ```bash
    npm install
    ```
 
 3. **Configuração do Banco de Dados:**
-   - Crie um banco de dados PostgreSQL ou MySQL com o nome `izi_app_todo_db` ou o nome de sua escolha, conforme esteja configurado em `config/config.js`.
+
+   - Crie um banco de dados PostgreSQL ou MySQL com o nome `izi_app_todo_db` ou o nome de sua escolha, conforme esteja configurado em `config/config.js` (para ambientes de desenvolvimento e testes, as configurações não vem do .env, optei por deixa-las mockadas, um outro padrão interessante aqui seria criar arquivos '.env.development' e '.env.test' para associar aos respectivos contextos).
    - Configure as credenciais do banco de dados e outras configurações em `config/config.js`. Exemplo:
+
      ```javascript
-     require('dotenv').config(); // Carrega as variáveis de ambiente do arquivo .env
+     require("dotenv").config(); // Carrega as variáveis de ambiente do arquivo .env
 
      module.exports = {
        development: {
-         username: process.env.DB_USERNAME,
-         password: process.env.DB_PASSWORD,
-         database: process.env.DB_NAME,
-         host: process.env.DB_HOST,
-         dialect: process.env.DB_DIALECT,
+         username: "postgres",
+         password: "123456",
+         database: "izi_app_todo_db",
+         host: "127.0.0.1",
+         dialect: "postgres",
        },
        test: {
-         username: process.env.DB_USERNAME,
-         password: process.env.DB_PASSWORD,
-         database: "todo_app_test_db",
-         host: process.env.DB_HOST,
-         dialect: process.env.DB_DIALECT,
+         username: "postgres",
+         password: "123456",
+         database: "izi_app_todo_db",
+         host: "127.0.0.1",
+         dialect: "postgres",
        },
        production: {
          username: process.env.DB_USERNAME,
@@ -65,11 +69,12 @@ Este projeto é uma aplicação web desenvolvida utilizando Node.js com o framew
          host: process.env.DB_HOST,
          dialect: process.env.DB_DIALECT,
          logging: false,
-       }
+       },
      };
      ```
 
 4. **Configurar Variáveis de Ambiente (.env):**
+
    ```plaintext
    # JWT
    JWT_SECRET=izi_app_todo_jwt_secret
@@ -101,8 +106,7 @@ Agora, o servidor deve estar rodando em `http://localhost:3000`. Acesse o endere
   * A coleção está na pasta: /collections/IZI APP - TODO.postman_collection
   * O enviroment utilizado na coleção está na pasta /collections/izi-app-localhost.postman_environment
   ```
-Basta importar a coleção e o enviroment dentro do seu ambiente do postman e iniciar! 
-OBS: Recomendo iniciar da requisição: POST User, pois é esta requisição responsável por criar o usuário a ser utilizado nas demais requisições, por conta da autenticação. 
-     Logo em seguida ir na requisição de LOGIN User, para autenticar e capturar o token a ser utilizado nas demais requisições. 
-     O token é setado na variável de ambiente do enviroment de forma automática, caso esteja tudo importado corretamente.
-
+  Basta importar a coleção e o enviroment dentro do seu ambiente do postman e iniciar!
+  OBS: Recomendo iniciar da requisição: POST User, pois é esta requisição responsável por criar o usuário a ser utilizado nas demais requisições, por conta da autenticação.
+  Logo em seguida ir na requisição de LOGIN User, para autenticar e capturar o token a ser utilizado nas demais requisições.
+  O token é setado na variável de ambiente do enviroment de forma automática, caso esteja tudo importado corretamente.

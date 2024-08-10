@@ -8,7 +8,7 @@ exports.createTask = async (req, res) => {
       title,
       description,
       isCompleted: false,
-      userId: req.userId,  // Certifique-se de que req.userId está sendo definido corretamente no middleware de autenticação
+      userId: req.userId,
     });
     res.status(201).json(task);
   } catch (error) {
