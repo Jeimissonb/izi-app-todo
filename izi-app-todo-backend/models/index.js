@@ -11,7 +11,6 @@ db.sequelize = sequelize;
 db.User = require('./user')(sequelize, Sequelize);
 db.Task = require('./task')(sequelize, Sequelize);
 
-// Associações entre os modelos
 db.User.hasMany(db.Task, { as: 'tasks' });
 db.Task.belongsTo(db.User, { foreignKey: 'userId', as: 'user' });
 
