@@ -1,8 +1,18 @@
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { Login } from './pages/login/Login';
+import { Register } from './pages/register/Register';
+import { TodoList } from './pages/todo-list/TodoList';
+
 export function App() {
 
   return (
-    <>
-      <h1>Oi IZI!</h1>
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/todos" element={<TodoList />} />
+      </Routes>
+    </Router>
+  );
 }
