@@ -6,11 +6,20 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      references: {
+        model: 'User',
+        key: 'id',
+      }
     }
+  }, {
+    tableName: 'Task'
   });
 
   Task.associate = function(models) {
-    Task.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+    Task.belongsTo(models.User, {
+      foreignKey: 'userId',
+      as: 'user'
+    });
   };
 
   return Task;

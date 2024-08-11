@@ -6,6 +6,8 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
     },
     password: DataTypes.STRING,
+  }, {
+    tableName: 'User'
   });
 
   User.associate = function(models) {
