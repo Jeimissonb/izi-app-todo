@@ -1,7 +1,7 @@
 @import '../../globals.scss';
 
 .registerContainer {
-  @extend .container;  // Aplicando os estilos do container global
+  @extend .container;
 
   h2 {
     text-align: center;

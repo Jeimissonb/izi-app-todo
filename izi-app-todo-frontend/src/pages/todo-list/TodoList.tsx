@@ -3,6 +3,7 @@ import { Button } from '../../components/button/Button';
 import { api } from '../../services/api';
 import { Input } from '../../components/input/Input';
 import styles from './TodoList.module.scss';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface Task {
   id: number;
@@ -15,6 +16,7 @@ export function TodoList() {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const { logout } = useAuth();
 
   useEffect(() => {
     fetchTasks();
@@ -40,6 +42,10 @@ export function TodoList() {
     }
   };
 
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <div className={styles.todoContainer}>
       <h2>Todo List</h2>
@@ -56,6 +62,7 @@ export function TodoList() {
         placeholder="Description"
       />
       <Button label="Add Task" primary onClick={addTask} />
+      <Button label="Logout" onClick={handleLogout} />
       <ul>
         {tasks.map((task) => (
           <li key={task.id}>

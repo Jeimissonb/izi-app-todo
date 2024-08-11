@@ -1,24 +1,16 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Button } from '../../components/button/Button';
-import { api } from '../../services/api';
 import styles from './Login.module.scss';
 import { Input } from '../../components/input/Input';
+import { useAuth } from '../../contexts/AuthContext';
 
 export function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const handleLogin = async () => {
-    try {
-      const response = await api.post('/auth/login', { email, password });
-      localStorage.setItem('token', response.data.token);
-      navigate('/todos');
-    } catch (error) {
-      console.error('Login failed', error);
-      alert('Invalid credentials');
-    }
+  const handleLogin = () => {
+    login(email, password);
   };
 
   return (
