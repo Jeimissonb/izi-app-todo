@@ -1,14 +1,21 @@
+import React, { useMemo } from 'react';
 import styles from './Button.module.scss';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  label: string;
+  label?: string;
   primary?: boolean;
-} 
+}
 
-export function Button({ label, primary = false, ...props }: ButtonProps) {
+const Button = ({ label, primary = false, ...props }: ButtonProps) => {
+  const className = useMemo(() => {
+    return `${styles.button} ${primary ? styles.primary : ''}`;
+  }, [primary]);
+
   return (
-    <button className={`${styles.button} ${primary ? styles.primary : ''}`} {...props}>
+    <button className={className} {...props}>
       {label}
     </button>
   );
-}
+};
+
+export default React.memo(Button);
