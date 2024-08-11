@@ -21,7 +21,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      // Simular a recuperação do usuário a partir do token
       setUser('User');
     }
   }, []);
