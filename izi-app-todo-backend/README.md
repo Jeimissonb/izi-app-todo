@@ -92,6 +92,12 @@ Este projeto é uma aplicação web desenvolvida utilizando Node.js com o framew
    npx sequelize-cli db:migrate
    ```
 
+6. **Executar SEEDS:**
+   ```bash
+   npx sequelize-cli db:seed:all
+   ```
+   
+
 ### Execução
 
 - **Iniciar o Servidor de Desenvolvimento, através de um script que criei para facilitar:**
