@@ -176,7 +176,6 @@ function TodoList() {
           >
             Clear All Completed Tasks
           </button>
-
         }
 
         {notification &&
