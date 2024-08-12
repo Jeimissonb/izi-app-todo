@@ -4,6 +4,8 @@ import { api } from '../../services/api';
 import Input from '../../components/input/Input';
 import styles from './TodoList.module.scss';
 import Notification from '../../components/notification/Notification';
+import { useAuth } from '../../contexts/AuthContext';
+import LogoutButton from '../../components/logout-button/LogoutButton';
 
 interface Task {
   id: number;
@@ -13,6 +15,8 @@ interface Task {
 }
 
 function TodoList() {
+  const { user } = useAuth();
+
   const [tasks, setTasks] = useState<Task[]>([]);
   const [title, setTitle] = useState('');
   const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
@@ -33,7 +37,10 @@ function TodoList() {
   };
 
   const addTask = async () => {
-    if (!title.trim()) return;
+    if (!title.trim()) {
+      showNotification('Title cannot be empty', 'error');
+      return;
+    }
     try {
       const response = await api.post('/tasks', { title });
       setTasks([...tasks, response.data]);
@@ -78,11 +85,13 @@ function TodoList() {
         try {
           if (task.isCompleted) {
             await api.delete(`/tasks/${task.id}`);
+            showNotification('All done tasks are cleared!', 'success');
+
             fetchTasks()
           }
         } catch (error) {
           console.error('Failed to delete task', error);
-          showNotification('Failed to delete task: ' + task, 'error');
+          showNotification('Failed to delete task: ' + task.title, 'error');
         }
       })
     } catch (error) {
@@ -103,7 +112,11 @@ function TodoList() {
             t.id === taskId ? { ...t, ...response.data } : t
           )
         );
-        showNotification('Task updated successfully', 'updated');
+        if (response.data.isCompleted) {
+          showNotification('Task done!!!', 'updated');
+        } else {
+          showNotification('Task removed from done!', 'updated');
+        }
       }
     } catch (error) {
       console.error('Failed to update task', error);
@@ -135,68 +148,77 @@ function TodoList() {
   };
 
   return (
-    <div className={styles.container}>
-      <h1>TO-DO</h1>
-      <div className={styles.inputContainer}>
-        <Input
-          type="text"
-          value={title || ''}
-          onChange={(e) => setTitle(e.target.value)}
-          placeholder="What do you need to do?"
-        />
-        {editingTaskId ? (
-          <>
-            <Button label="Update" primary onClick={() => updateTask(editingTaskId)} />
-            <Button label="Cancel" onClick={cancelEditing} />
-          </>
-        ) : (
-          <Button label="Add" primary onClick={addTask} />
-        )}
+    <>
+      <LogoutButton user={user as string} />
+      <div className={styles.container}>
+        <h1>TO-DO</h1>
+        <div className={styles.inputContainer}>
+          <Input
+            type="text"
+            value={title || ''}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="What do you need to do?"
+          />
+          {editingTaskId ? (
+            <>
+              <Button label="Update" primary onClick={() => updateTask(editingTaskId)} />
+              <Button label="Cancel" onClick={cancelEditing} />
+            </>
+          ) : (
+            <Button label="Add" primary onClick={addTask} />
+          )}
+        </div>
+
+        <ul className={styles.taskList}>
+          {tasks.length <= 0 ?
+            (
+              <div className={styles.taskItem}><h1 className={styles.tasksEmpty}> You don't have tasks❗</h1></div>
+            ) :
+            tasks.map((task) => (
+              <li key={task.id} className={styles.taskItem}>
+                <span className={styles.checkbox}>
+                  <Input
+                    onClick={() => toggleCompleteTask(task.id)}
+                    type="checkbox"
+                    checked={task.isCompleted}
+                    onChange={(e) => e}
+                    className={styles.customCheckbox}
+                  />
+                </span>
+                <div className={`${styles.taskContent} ${task.isCompleted && styles.completed}`}>
+                  {task.title}
+                </div>
+                <div className={styles.actionButtons}>
+                  <button onClick={() => startEditingTask(task)} className={styles.editButton} disabled={task.isCompleted}>{!task.isCompleted && '🖊️'}</button>
+                  <button onClick={() => deleteTask(task.id)} className={styles.deleteButton}>🗑️</button>
+                </div>
+              </li>
+            ))
+          }
+        </ul>
+
+
+        {
+          tasks.some(task => task.isCompleted) &&
+          <button
+            className={styles.clearButton}
+            onClick={() => deleteAllCompletedTasks(tasks)}
+          >
+            Clear All Completed Tasks
+          </button>
+
+        }
+
+        {notification &&
+          <Notification
+            message={notification.message}
+            type={notification.type}
+            onClose={() => setNotification(null)}
+          />
+        }
       </div>
+    </>
 
-      <ul className={styles.taskList}>
-        {tasks.map((task) => (
-          <li key={task.id} className={styles.taskItem}>
-            <span className={styles.checkbox}>
-              <Input
-                onClick={() => toggleCompleteTask(task.id)}
-                type="checkbox"
-                checked={task.isCompleted}
-                onChange={(e) => e}
-                className={styles.customCheckbox}
-              />
-            </span>
-            <div className={`${styles.taskContent} ${task.isCompleted && styles.completed}`}>
-              {task.title}
-            </div>
-            <div className={styles.actionButtons}>
-              <button onClick={() => startEditingTask(task)} className={styles.editButton}>🖊️</button>
-              <button onClick={() => deleteTask(task.id)} className={styles.deleteButton}>🗑️</button>
-            </div>
-          </li>
-        ))}
-      </ul>
-
-
-      {
-        tasks.some(task => task.isCompleted) &&
-        <button
-          className={styles.clearButton}
-          onClick={() => deleteAllCompletedTasks(tasks)}
-        >
-          Clear All Completed Tasks
-        </button>
-
-      }
-
-      {notification &&
-        <Notification
-          message={notification.message}
-          type={notification.type}
-          onClose={() => setNotification(null)}
-        />
-      }
-    </div>
   );
 }
 export default TodoList

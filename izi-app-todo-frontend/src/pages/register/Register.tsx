@@ -17,7 +17,7 @@ function Register() {
   const handleRegister = async () => {
     try {
       const response = await await api.post('/auth/register', { name, email, password });
-      showNotification('User registered: ' + response, 'success');
+      showNotification('User registered successfully!', 'success');
 
     } catch (error) {
       console.error('Registration failed', error);

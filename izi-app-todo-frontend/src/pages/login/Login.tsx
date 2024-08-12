@@ -40,7 +40,7 @@ function Login() {
       </div>
 
       <div className={styles.loginActionButtons}>
-        <Button label="Login" primary onClick={handleLogin} />
+        <Button label="Login 🔓" primary onClick={handleLogin} />
         <h5> Dont't have a email registered to use TO-DO from <a href='https://www.instagram.com/iziapp/' target='_blank'>@iziapp</a>? <a href='/register'>Register now!</a> </h5>
       </div>
     </div>
