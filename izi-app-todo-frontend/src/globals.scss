@@ -1,0 +1,16 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #e2e8f0;
+  color: #000;
+  -webkit-font-smoothing: antialiased;
+}
+
+body, input, textarea, button {
+  font-weight: 400;
+  font-size: 1rem;
+}

@@ -1,0 +1,75 @@
+.logoutInfo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: -0.4rem;
+
+  .userButton {
+    background-color: #0F83D3;
+    color: #ffffff;
+    border: none;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.3s ease;
+    text-align: right;
+
+    &:hover {
+      background-color: #FF6600;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .dropdownMenu {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1000;
+    background-color: #0F83D3;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
+    padding: 0.5rem;
+    min-width: 8rem;
+
+    .logoutButton {
+      width: 100%;
+      background-color: transparent;
+      border: none;
+      color: #ffffff;
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 0.25rem;
+      height: 2rem;
+
+      &:hover {
+        background-color: #FF6600;
+        animation: pulse 1s infinite;
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

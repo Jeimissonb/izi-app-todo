@@ -1,0 +1,36 @@
+.notification {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  color: #FFF;
+  font-weight: bold;
+  z-index: 1000;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+
+  &.success {
+    background-color: #4CAF50;
+  }
+
+  &.error {
+    background-color: #F44336;
+  }
+
+  &.updated {
+    background-color: #36b5f4;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
