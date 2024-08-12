@@ -14,11 +14,11 @@ exports.register = async (req, res) => {
 
     if (error.name === 'SequelizeUniqueConstraintError') {
       res.status(400).json({
-        error: `O email ${email} já está em uso. Por favor, escolha outro.`,
+        error: `Email ${email} already in use!`,
       });
     } else {
       res.status(500).json({
-        error: 'Ocorreu um erro ao tentar registrar o usuário. Tente novamente.',
+        error: 'Error trying to register a user, please, try again.',
         details: error.message,
       });
     }
