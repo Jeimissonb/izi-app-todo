@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 
 app.use(cors({
-  origin: 'https://izi-app-todo.vercel.app'
+  origin: ['https://izi-app-todo.vercel.app', 'http://localhost:3000']
 }));
 
 const authRoutes = require('./routes/authRoutes');
