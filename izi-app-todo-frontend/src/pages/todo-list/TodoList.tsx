@@ -57,7 +57,7 @@ function TodoList() {
       return;
     }
     try {
-      const response = await api.put(`/tasks/${taskId}`, { title: title.trim() }); // Trim the title before sending
+      const response = await api.put(`/tasks/${taskId}`, { title: title.trim() });
       setTasks(tasks.map(task => (task.id === taskId ? response.data : task)));
       setTitle('');
       setEditingTaskId(null);

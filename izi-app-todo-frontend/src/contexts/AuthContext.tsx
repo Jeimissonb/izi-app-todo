@@ -53,6 +53,7 @@ function AuthProvider({ children }: AuthProviderProps) {
       localStorage.setItem('token', response.data.token);
       localStorage.setItem('user', email);
       setUser(email);
+      showNotification('Logged in successfully', 'success');
       navigate('/todos');
     } catch (error) {
       console.error('Login failed', error);

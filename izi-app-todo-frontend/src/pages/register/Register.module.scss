@@ -36,7 +36,7 @@
   .registerActionButtons {
     display: flex;
     gap: 1rem;
-    justify-content: left;
+    justify-content: center;
     margin-right: 10px;
 
 
@@ -52,6 +52,24 @@
       &:hover {
         background-color: #2980b9;
       }
+    }
+  }
+
+  .inputGroup {
+    margin-bottom: 1rem;
+    text-align: left;
+    label {
+      display: block;
+      margin-bottom: 0.2rem;
+      font-weight: bold;
+      color: #2980b9;
+    }
+  
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #3498db;
+      border-radius: 0.25rem;
     }
   }
 }
