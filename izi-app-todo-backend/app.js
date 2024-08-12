@@ -1,4 +1,12 @@
 require('dotenv').config();
+
+const cors = require('cors');
+app.use(cors());
+
+app.use(cors({
+  origin: 'https://izi-app-todo.vercel.app'
+}));
+
 const express = require('express');
 const app = express();
 const authRoutes = require('./routes/authRoutes');
