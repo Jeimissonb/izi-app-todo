@@ -6,8 +6,9 @@ import styles from './TodoList.module.scss';
 import Notification from '../../components/notification/Notification';
 import { useAuth } from '../../contexts/AuthContext';
 import LogoutButton from '../../components/logout-button/LogoutButton';
+import TaskList from './task-list/TaskList';
 
-interface Task {
+export interface Task {
   id: number;
   title: string;
   description: string;
@@ -102,7 +103,6 @@ function TodoList() {
 
   const toggleCompleteTask = async (taskId: number) => {
     setNotification(null);
-
     try {
       const task = tasks.find(task => task.id === taskId);
       if (task) {
@@ -140,7 +140,6 @@ function TodoList() {
     }
 
     setNotification({ message, type });
-
     notificationTimeoutRef.current = setTimeout(() => {
       setNotification(null);
       notificationTimeoutRef.current = null;
@@ -168,36 +167,7 @@ function TodoList() {
             <Button label="Add" primary onClick={addTask} />
           )}
         </div>
-
-        <ul className={styles.taskList}>
-          {tasks.length <= 0 ?
-            (
-              <div className={styles.taskItem}><h1 className={styles.tasksEmpty}> You don't have tasks❗</h1></div>
-            ) :
-            tasks.map((task) => (
-              <li key={task.id} className={styles.taskItem}>
-                <span className={styles.checkbox}>
-                  <Input
-                    onClick={() => toggleCompleteTask(task.id)}
-                    type="checkbox"
-                    checked={task.isCompleted}
-                    onChange={(e) => e}
-                    className={styles.customCheckbox}
-                  />
-                </span>
-                <div className={`${styles.taskContent} ${task.isCompleted && styles.completed}`}>
-                  {task.title}
-                </div>
-                <div className={styles.actionButtons}>
-                  <button onClick={() => startEditingTask(task)} className={styles.editButton} disabled={task.isCompleted}>{!task.isCompleted && '🖊️'}</button>
-                  <button onClick={() => deleteTask(task.id)} className={styles.deleteButton}>🗑️</button>
-                </div>
-              </li>
-            ))
-          }
-        </ul>
-
-
+        <TaskList taskList={tasks} toggleCompleteTask={toggleCompleteTask} startEditingTask={startEditingTask} deleteTask={deleteTask} />
         {
           tasks.some(task => task.isCompleted) &&
           <button
