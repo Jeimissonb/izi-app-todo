@@ -36,8 +36,9 @@ function Register() {
       await api.post('/auth/register', { name, email, password });
       showNotification('User registered successfully!', 'success');
       setTimeout(() => navigate('/login'), 1200);
-    } catch (error) {
-      showNotification(`Registration failed: ${(error as Error).message}`, 'error');
+    } catch (error: any) {
+      console.log(error.response.data.error)
+      showNotification(`${error.response.data.error}`, 'error');
     }
   };
 
