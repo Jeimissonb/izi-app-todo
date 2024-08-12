@@ -29,7 +29,7 @@ function TaskList({ taskList, toggleCompleteTask, startEditingTask, deleteTask }
                 className={styles.customCheckbox}
               />
             </span>
-            <div className={`${styles.taskContent} ${task.isCompleted && styles.completed}`}>
+            <div className={`${styles.taskContent} ${task.isCompleted && styles.completed}`} onDoubleClick={() => toggleCompleteTask(task.id)}>
               {task.title}
             </div>
             <div className={styles.actionButtons}>

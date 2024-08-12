@@ -5,6 +5,7 @@
   padding: 0;
   margin: 0;
   list-style: none;
+  user-select: none;
 
   h1 {
     font-size: 1.7rem;
@@ -102,6 +103,14 @@
       }
     }
   }
+}
+
+@media (max-height: 880px) {
+  .taskList {
+    max-height: 15.75rem
+  }
+
+  ;
 }
 
 .customCheckbox {
