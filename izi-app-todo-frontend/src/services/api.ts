@@ -54,8 +54,10 @@ api.interceptors.response.use(
 
     if (error.response && error.response.status === 401) {
       localStorage.removeItem('token'); 
-      if (window.location.href !== 'http://localhost:5173/login') {
-        window.location.href = '/login'; 
+
+      const loginUrl = `${window.location.origin}/login`;
+      if (window.location.href !== loginUrl) {
+        window.location.href = loginUrl; 
       }
     }
     return Promise.reject(error); 
